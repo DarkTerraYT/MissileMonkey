@@ -65,13 +65,13 @@ namespace MissileMonkeyMod
             var projectileModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
             projectileModel.GetDamageModel().damage += 3;
 
-            if(towerModel.GetWeapon().emission.name == "ArcEmissionModel")
+            if(towerModel.GetWeapon().emission.name == "ArcEmissionModel_1")
             {
-                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel_", 5, 0, 30, null, false, false);
+                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel_0", 5, 0, 30, null, false, false);
             }
             else
             {
-                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel_", 3, 0, 30, null, false, false);
+                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel_0", 3, 0, 30, null, false, false);
             }
         }
     }
@@ -165,8 +165,8 @@ namespace MissileMonkeyMod
             IgnoredTags.Add("Bad");
 
             var projectileModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
-            towerModel.GetWeapon().projectile.AddBehavior(new RemoveBloonModifiersModel("superStripRemoveBloonModifiersModel", true, true, true, true, true, IgnoredTags));
-            projectileModel.AddBehavior(new RemoveBloonModifiersModel("superStripRemoveBloonModifiersModel_", true, true, true, true, true, IgnoredTags));
+            towerModel.GetWeapon().projectile.AddBehavior(new RemoveBloonModifiersModel("superStripRemoveBloonModifiersModel", true, true, false, true, true, IgnoredTags));
+            projectileModel.AddBehavior(new RemoveBloonModifiersModel("superStripRemoveBloonModifiersModel_", true, true, false, true, true, IgnoredTags));
             projectileModel.GetDamageModel().damage += 6;
             projectileModel.UpdateCollisionPassList();
             System.Collections.Generic.List<DamageModifierForTagModel> behaviors = new System.Collections.Generic.List<DamageModifierForTagModel>(3);
@@ -195,22 +195,16 @@ namespace MissileMonkeyMod
 
             foreach (var model in projectileModel.GetBehaviors<RemoveBloonModifiersModel>())
             {
-                if (model.name == "superStripRemoveBloonModifiersModel_")
-                {
-                    model.name = "ultraStripRemoveBloonModifiersModel_";
-                    model.bloonTagExcludeList = IgnoredTags;
-                }
+                projectileModel.RemoveBehavior(model);
             }
 
             foreach (var model in towerModel.GetWeapon().projectile.GetBehaviors<RemoveBloonModifiersModel>())
             {
-                if (model.name == "superStripRemoveBloonModifiersModel")
-                {
-                    model.name = "ultraStripRemoveBloonModifiersModel";
-                    model.bloonTagExcludeList = IgnoredTags;
-                }
+                towerModel.GetWeapon().projectile.RemoveBehavior(model);   
             }
 
+            projectileModel.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, IgnoredTags));
+            towerModel.GetWeapon().projectile.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, IgnoredTags));
             projectileModel.UpdateCollisionPassList();
             projectileModel.GetDamageModel().damage += 15;
 
@@ -242,19 +236,22 @@ namespace MissileMonkeyMod
         public override int Tier => 2;
 
         public override int Cost => 1250;
+
+        public override string DisplayName => "Double Rockets";
+
         public override string Description => "Now Shoots two Missiles (Five if Triple Launchers is Bought)";
 
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             var projectileModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
 
-            if (towerModel.GetWeapon().emission.name == "ArcEmissionModel_")
+            if (towerModel.GetWeapon().emission.name == "ArcEmissionModel_0")
             {
-                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel", 5, 0, 15, null, false, false);
+                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel_1", 5, 0, 15, null, false, false);
             }
             else
             {
-                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel", 2, 0, 15, null, false, false);
+                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel_1", 2, 0, 15, null, false, false);
             }
         }
     }
@@ -265,13 +262,13 @@ namespace MissileMonkeyMod
         public override int Tier => 3;
 
         public override int Cost => 2500;
-        public override string Description => "Improved Helmet & Missiles Allow Them to be Shot Through Walls and Seek out Bloons";
+        public override string Description => "Improved Helmet & Missiles Allow Them to be Shot Through Walls";
 
         public override void ApplyUpgrade(TowerModel towerModel)
         {
-            var projectileModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
+            var projectileModel = towerModel.GetAttackModel().weapons[0].projectile;
 
-            projectileModel.AddBehavior(new TrackTargetModel("TrackTargetModel", 100f, true, false, 360, false, 270, false, false));
+            projectileModel.AddBehavior(Game.instance.model.GetTowerFromId("WizardMonkey-200").GetWeapon().projectile.GetBehavior<TrackTargetModel>().Duplicate());
 
             towerModel.ignoreBlockers = true;
             towerModel.GetAttackModel().attackThroughWalls = true;
@@ -284,13 +281,12 @@ namespace MissileMonkeyMod
         public override int Tier => 4;
 
         public override int Cost => 3000;
-        public override string Description => "Missiles now Contain 2 Bombs";
+        public override string Description => "Missiles now Contain 2 Bombs (2x damage)";
 
         public override void ApplyUpgrade(TowerModel towerModel)
         {
-            var createProjectileOnContactModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>();
-            var projectile = createProjectileOnContactModel.projectile;
-            createProjectileOnContactModel.emission = new ArcEmissionModel("ArcEmissionModel_CreateProjectileOnContactModel", 2, 0, 15, null, false, false);
+            var projectileModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
+            projectileModel.GetDamageModel().damage *= 2;
         }
     }
     internal class UltraKnockback : ModUpgrade<MissileMonkey>
@@ -305,14 +301,18 @@ namespace MissileMonkeyMod
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             towerModel.GetWeapon().rate = Game.instance.model.GetTowerFromId("SniperMonkey-003").GetWeapon().rate;
-            var projectileModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
+            var projectileModel_ = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
+            var projectileModel = towerModel.GetWeapon().projectile;
             var knockbackModel = Game.instance.model.GetTowerFromId("SuperMonkey-002").GetWeapon().projectile.GetBehavior<KnockbackModel>().Duplicate();
-            knockbackModel.lifespan = 2f;
-            knockbackModel.Lifespan = 2f;
+            knockbackModel.lifespan *= 2;
+            knockbackModel.heavyMultiplier *= 2;
+            knockbackModel.lightMultiplier *= 3;
+            knockbackModel.moabMultiplier *= 2;
             projectileModel.AddBehavior(knockbackModel);
-            projectileModel.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_Ceramic", "Ceramic", 1, 5, false, false));
-            projectileModel.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_Fortified", "Fortified", 1, 5, false, false));
-            projectileModel.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_Moab", "Moab", 1, 15, false, false));
+            projectileModel_.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_Ceramic", "Ceramic", 1, 5, false, false));
+            projectileModel_.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_Fortified", "Fortified", 1, 5, false, false));
+            projectileModel_.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_Moab", "Moab", 1, 15, false, false));
+            projectileModel.UpdateCollisionPassList();
         }
     }
 }

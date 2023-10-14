@@ -39,6 +39,8 @@ namespace MissileMonkeyMod
             projectileModel.pierce = 20;
             towerModel.GetWeapon().projectile.ApplyDisplay<MissileDisplay>();
             towerModel.GetWeapon().projectile.GetBehavior<TravelStraitModel>().lifespan += 25;
+            towerModel.GetWeapon().projectile.GetBehavior<TravelStraitModel>().speed *= 2.35f;
+            towerModel.GetWeapon().projectile.GetBehavior<TravelStraitModel>().Speed *= 2.35f;
         }
         public override bool IsValidCrosspath(int[] tiers) => ModHelper.HasMod("UltimateCrosspathing") ? true : base.IsValidCrosspath(tiers);
     }

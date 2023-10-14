@@ -10,6 +10,9 @@ using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;
 using HarmonyLib;
 using Il2CppAssets.Scripts.Simulation.Towers;
 using Il2CppAssets.Scripts.Simulation.Objects;
+using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
+using BTD_Mod_Helper.Api.ModOptions;
+using Il2CppAssets.Scripts.Simulation;
 
 [assembly: MelonInfo(typeof(MissileMonkeyMod.MissileMonkeyMod), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -39,5 +42,18 @@ public class MissileMonkeyMod : BloonsTD6Mod
         {
             ArtilleryCommand.towerFilterList = ArtilleryCommand.towerFilterList.AddTo(TowerID);
         }
+    }
+
+    public static readonly ModSettingBool idk = new(false) {description="idk, also download"};
+
+    public override void OnCashAdded(double amount, Simulation.CashType from, int cashIndex, Simulation.CashSource source, Tower tower)
+    {
+        if (idk)
+            ModHelper.Msg<MissileMonkeyMod>("You got " + amount + "cash (why did you enable this?)");
+    }
+    public override void OnCashRemoved(double amount, Simulation.CashType from, int cashIndex, Simulation.CashSource source)
+    {
+        if (idk)
+            ModHelper.Msg<MissileMonkeyMod>("You lost " + amount + "cash (why did you enable this?)");
     }
 }

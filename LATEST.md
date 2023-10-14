@@ -1,1 +1,1 @@
-When you push a tag to GitHub, the contents of this file will become your release message
+Improvements fixed some bugs (double rockets and triple launchers didn't work together for whatever reason, EHV seeking not working and unltra knockback not knocking back, and 040 and 050 only stripping fortification) the knockback isn't that good on ceramic+. PARAGON NEXT! So if you're planning to make a YT vid on this just wait :)
