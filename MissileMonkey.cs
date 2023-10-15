@@ -28,6 +28,8 @@ namespace MissileMonkeyMod
 
         public override string Description => "Just when the monkeys thought they had done it all, the engineer monkey made a new missile launcher. This gave the monkeys extra hope that they could defeat the bloon forces.";
 
+        public override ParagonMode ParagonMode => ParagonMode.Base000;
+
         public override void ModifyBaseTowerModel(TowerModel towerModel)
         {
             towerModel.GetAttackModel().weapons[0].rate = 0.33f;

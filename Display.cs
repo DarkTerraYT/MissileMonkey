@@ -23,6 +23,15 @@ namespace MissileMonkeyMod
     {
         public override string BaseDisplay => Game.instance.model.GetTowerFromId("BombShooter-050").GetAttackModel().weapons[0].projectile.display.GUID;
     }
+    internal class Missile4Display : ModDisplay
+    {
+        public override string BaseDisplay => Game.instance.model.GetTowerFromId("BombShooter-050").GetAttackModel().weapons[0].projectile.display.GUID;
+
+        public override void ModifyDisplayNode(UnityDisplayNode node)
+        {
+            SetMeshTexture(node, "MOABEliminatorDiffuse_0");
+        }
+    }
     internal class MissileLauncherDisplay : ModTowerDisplay<MissileMonkey>
     {
         public override string BaseDisplay => Game.instance.model.GetTowerFromId("SniperMonkey-004").display.GUID;

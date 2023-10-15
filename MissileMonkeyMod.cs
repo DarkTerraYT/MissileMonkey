@@ -13,6 +13,9 @@ using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper.Api.ModOptions;
 using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Unity;
+using Il2CppAssets.Scripts.Simulation.Bloons;
 
 [assembly: MelonInfo(typeof(MissileMonkeyMod.MissileMonkeyMod), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -55,5 +58,28 @@ public class MissileMonkeyMod : BloonsTD6Mod
     {
         if (idk)
             ModHelper.Msg<MissileMonkeyMod>("You lost " + amount + "cash (why did you enable this?)");
+    }
+
+    public override void OnAbilityCast(Ability ability)
+    {
+        bool flag = ability.model.name == "coldWarButWarm" && ability.IsActive;
+        bool alreadyResetPrice = false;
+
+        if (flag)
+        {
+            Game.instance.model.sellMultiplier *= 2;
+        }
+        else 
+        {
+            if(!alreadyResetPrice)
+            {
+                Game.instance.model.sellMultiplier /= 2;
+            }
+        }
+    }
+    public override void OnBloonCreated(Bloon bloon)
+    {
+        if (idk)
+            ModHelper.Msg<MissileMonkeyMod>("Popped " + bloon.model.name + " Why did you enable this?");
     }
 }

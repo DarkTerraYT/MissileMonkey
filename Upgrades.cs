@@ -251,7 +251,7 @@ namespace MissileMonkeyMod
             }
             else
             {
-                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel_1", 2, 0, 15, null, false, false);
+                towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel_1", 2, 0, 5, null, false, false);
             }
         }
     }
