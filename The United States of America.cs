@@ -37,10 +37,10 @@ namespace MissileMonkeyMod
             projectileModel.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_Moab", "Ceramic", 2, 0, false, false));
 
             var knockbackModel = Game.instance.model.GetTowerFromId("SuperMonkey-002").GetWeapon().projectile.GetBehavior<KnockbackModel>().Duplicate();
-            knockbackModel.lifespan *= 10;
-            knockbackModel.heavyMultiplier *= 20;
-            knockbackModel.lightMultiplier *= 30;
-            knockbackModel.moabMultiplier *= 15;
+            knockbackModel.lifespan *= 12;
+            knockbackModel.heavyMultiplier *= 25;
+            knockbackModel.lightMultiplier *= 35;
+            knockbackModel.moabMultiplier *= 20;
             towerModel.GetWeapon().projectile.AddBehavior(knockbackModel);
 
             Il2CppReferenceArray<Model> abilityBehaviors = new(0);

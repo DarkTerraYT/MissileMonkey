@@ -21,7 +21,7 @@ namespace MissileMonkeyMod
     }
     internal class Missile3Display : ModDisplay
     {
-        public override string BaseDisplay => Game.instance.model.GetTowerFromId("BombShooter-050").GetAttackModel().weapons[0].projectile.display.GUID;
+        public override string BaseDisplay => Game.instance.model.GetTowerFromId("BombShooter-040").GetAttackModel().weapons[0].projectile.display.GUID;
     }
     internal class Missile4Display : ModDisplay
     {

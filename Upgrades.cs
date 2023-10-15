@@ -58,7 +58,7 @@ namespace MissileMonkeyMod
     {
         public override int Path => TOP;
         public override int Tier => 3;
-        public override int Cost => 4000;
+        public override int Cost => 9000;
         public override string Description => "Does 3 More Damage and now Shoots Three Missiles (5 if Double Attack is Bought)";
         public override void ApplyUpgrade(TowerModel towerModel)
         {
@@ -93,14 +93,14 @@ namespace MissileMonkeyMod
     {
         public override int Path => TOP;
         public override int Tier => 5;
-        public override int Cost => 38000;
-        public override string Description => "Now Uses the MOAB Eliminator Missiles, Also Does More Damage to Fortified Bloons";
+        public override int Cost => 63000;
+        public override string Description => "Now Uses the MOAB Assassin Missiles, Also Does More Damage to Fortified Bloons";
 
         public override void ApplyUpgrade(TowerModel towerModel)
         {
             var projectileModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
             projectileModel.AddBehavior(Game.instance.model.GetTower("BombShooter", pathTwoTier: 4).GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetBehavior<DamageModifierForTagModel>().Duplicate());
-            projectileModel.GetDamageModel().damage += Game.instance.model.GetTowerFromId("BombShooter-050").GetWeapon().projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetDamageModel().damage;
+            projectileModel.GetDamageModel().damage += Game.instance.model.GetTowerFromId("BombShooter-040").GetWeapon().projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetDamageModel().damage;
             projectileModel.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_Fortified", "Fortified", 1f, 10f, false, false));
             towerModel.GetWeapon().projectile.ApplyDisplay<Missile3Display>();
         }
@@ -182,7 +182,7 @@ namespace MissileMonkeyMod
     {
         public override int Path => MIDDLE;
         public override int Tier => 5;
-        public override int Cost => 40000;
+        public override int Cost => 50000;
         public override string Description => "Does Even More Damage and Also can now Strip all Bloon Properties on Bloons Under a ZOMG";
 
         public override void ApplyUpgrade(TowerModel towerModel)
@@ -295,7 +295,7 @@ namespace MissileMonkeyMod
 
         public override int Tier => 5;
 
-        public override int Cost => 45000;
+        public override int Cost => 50000;
         public override string Description => "Shoots way Faster, Does More Damage to Ceramic Bloons, Fortified Bloons, and MOAB Class Bloons. Also now Knocks Bloons Back.";
 
         public override void ApplyUpgrade(TowerModel towerModel)
