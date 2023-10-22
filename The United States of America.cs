@@ -47,8 +47,7 @@ namespace MissileMonkeyMod
 
             abilityBehaviors.AddTo(new TurboModel("TurboModel_", 5f, 0.5f, null, 100, 1f, true));
 
-            var abilityModel = new AbilityModel("coldWarButWarm", "The Cold War But Warm", "Adds 100 Damage, and Doubles Attack Speed for 5 Seconds and Something Secret ;)", 0, 0, GetSpriteReference<MissileMonkeyMod>("Paragon-Icon"), 20, abilityBehaviors, false, false, null, 1, 0, -1, true, false);
-
+            var abilityModel = new AbilityModel("coldWarButWarm", "The Cold War But Warm", "Adds 100 Damage, and Doubles Attack Speed for 5 Seconds and Something Secret ;)", 0, 0, GetSpriteReference(Icon), 20, abilityBehaviors, false, false, null, 0, 0, 65536, true, false);
             towerModel.AddBehavior(abilityModel);
 
             towerModel.GetAttackModel().weapons[0].projectile.AddBehavior(Game.instance.model.GetTowerFromId("WizardMonkey-200").GetWeapon().projectile.GetBehavior<TrackTargetModel>().Duplicate());
