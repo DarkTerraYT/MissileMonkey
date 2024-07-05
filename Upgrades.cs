@@ -164,9 +164,12 @@ namespace MissileMonkeyMod
             IgnoredTags.Add("Zomg");
             IgnoredTags.Add("Bad");
 
+            Il2CppStringArray tags = new(IgnoredTags.ToArray());
+
+
             var projectileModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
-            towerModel.GetWeapon().projectile.AddBehavior(new RemoveBloonModifiersModel("superStripRemoveBloonModifiersModel", true, true, false, true, true, IgnoredTags));
-            projectileModel.AddBehavior(new RemoveBloonModifiersModel("superStripRemoveBloonModifiersModel_", true, true, false, true, true, IgnoredTags));
+            towerModel.GetWeapon().projectile.AddBehavior(new RemoveBloonModifiersModel("superStripRemoveBloonModifiersModel", true, true, false, true, true, tags, new(0)));
+            projectileModel.AddBehavior(new RemoveBloonModifiersModel("superStripRemoveBloonModifiersModel_", true, true, false, true, true, tags, new(0)));
             projectileModel.GetDamageModel().damage += 6;
             projectileModel.UpdateCollisionPassList();
             System.Collections.Generic.List<DamageModifierForTagModel> behaviors = new System.Collections.Generic.List<DamageModifierForTagModel>(3);
@@ -190,6 +193,7 @@ namespace MissileMonkeyMod
             Il2CppSystem.Collections.Generic.List<string> IgnoredTags = new Il2CppSystem.Collections.Generic.List<string>(2);
             IgnoredTags.Add("Zomg");
             IgnoredTags.Add("Bad");
+            Il2CppStringArray tags = new(IgnoredTags.ToArray());
 
             var projectileModel = towerModel.GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
 
@@ -203,8 +207,8 @@ namespace MissileMonkeyMod
                 towerModel.GetWeapon().projectile.RemoveBehavior(model);   
             }
 
-            projectileModel.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, IgnoredTags));
-            towerModel.GetWeapon().projectile.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, IgnoredTags));
+            projectileModel.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, tags, new(0)));
+            towerModel.GetWeapon().projectile.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, tags, new(0)));
             projectileModel.UpdateCollisionPassList();
             projectileModel.GetDamageModel().damage += 15;
 

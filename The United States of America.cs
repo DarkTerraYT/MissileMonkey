@@ -58,9 +58,10 @@ namespace MissileMonkeyMod
             towerModel.GetWeapon().emission = new ArcEmissionModel("ArcEmissionModel_1", 8, 0, 15, null, false, false);
 
             List<string> IgnoredTags = new(0);
+            Il2CppStringArray tags = new(IgnoredTags.ToArray());
 
-            projectileModel.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, IgnoredTags));
-            towerModel.GetWeapon().projectile.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, IgnoredTags));
+            projectileModel.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, tags, new(0)));
+            towerModel.GetWeapon().projectile.AddBehavior(new RemoveBloonModifiersModel("RemoveBloonModifiers_", true, true, false, true, true, tags, new(0)));
             projectileModel.UpdateCollisionPassList();
 
             projectileModel.radius *= 3f;
